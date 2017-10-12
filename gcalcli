@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 
 # ** The MIT License **
 #
@@ -192,9 +192,9 @@ try:
     import httplib2
     from apiclient.discovery import build
     from apiclient.errors import HttpError
-    from oauth2client.file import Storage
-    from oauth2client.client import OAuth2WebServerFlow
-    from oauth2client.tools import run
+    from oauth2client1412.file import Storage
+    from oauth2client1412.client import OAuth2WebServerFlow
+    from oauth2client1412.tools import run
 except ImportError as e:
     print "ERROR: Missing module - %s" % e.args[0]
     sys.exit(1)
@@ -1229,6 +1229,11 @@ class gcalcli:
                 event['s'].strftime("%I:%M").lstrip('0').rjust(5) + \
                 event['s'].strftime('%p').lower()
 
+            tmpEndTimeStr = \
+                event['e'].strftime("%I:%M").lstrip('0').rjust(5) + \
+                event['e'].strftime('%p').lower()
+
+
         if not prefix:
             prefix = indent
 
@@ -1242,8 +1247,8 @@ class gcalcli:
             fmt = '  ' + timeFormat + '  %s\n'
             PrintMsg(eventColor, fmt % ('', self._ValidTitle(event).strip()))
         else:
-            fmt = '  ' + timeFormat + '  %s\n'
-            PrintMsg(eventColor, fmt % (stringToUnicode(tmpTimeStr), self._ValidTitle(event).strip()))
+            fmt = '  ' + timeFormat + ' ' + timeFormat + '  %s\n'
+            PrintMsg(eventColor, fmt % (stringToUnicode(tmpTimeStr), stringToUnicode(tmpEndTimeStr), self._ValidTitle(event).strip()))
 
         if self.detailCalendar:
             xstr = "%s  Calendar: %s\n" % (
